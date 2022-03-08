@@ -61,9 +61,6 @@
                         $sql = "UPDATE todo SET task = :task, priorityID = :priorityID, note = :note WHERE taskID = :taskID";
                     }
                     
-                    // INSERT INTO table
-                    $sql = "INSERT INTO todo (priorityID, task, note) VALUES (:priorityID, :task, :note)";
-
                     $cmd = $db->prepare($sql);
 
                     // Link the forms to the corresponding table column
