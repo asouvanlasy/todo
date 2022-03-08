@@ -1,0 +1,2 @@
+# Ignore db.php because it contains my AWS login information
+db.php
