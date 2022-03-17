@@ -3,14 +3,3 @@
 body {
     font-family: 'Fira Sans', sans-serif;
 }
-
-main {
-    padding-top: 3vw;
-    padding-left: 20vw;
-    padding-right: 20vw;
-}
-
-.navbar {
-    padding-left: 20vw;
-    padding-right: 20vw;
-}

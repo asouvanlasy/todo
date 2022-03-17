@@ -3,10 +3,10 @@ $title = 'Tasks';
 require 'inc/header.php';
 ?>
 
-<main class="container">
+<main class="container pt-5">
     <!-- Display table and apply Bootstrap styling -->
     <table class="table table-striped table-hover">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>Task</th>
                 <th>Priority</th>
