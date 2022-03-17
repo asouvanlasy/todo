@@ -2,35 +2,39 @@
 $title = 'Edit Task';
 require 'inc/header.php';
 
-// Check for taskID URL param. If we have one, query db and populate form. If not, show blank form
-$taskID = null;
-$task = null;
-$note = null;
-$priorityID = null;
+try {
+    // Check for taskID URL param. If we have one, query db and populate form. If not, show blank form
+    $taskID = null;
+    $task = null;
+    $note = null;
+    $priorityID = null;
 
-if (isset($_GET['taskID'])) {
-    if (is_numeric($_GET['taskID'])) {
-        $taskID = $_GET['taskID'];
+    if (isset($_GET['taskID'])) {
+        if (is_numeric($_GET['taskID'])) {
+            $taskID = $_GET['taskID'];
 
-        require 'inc/db.php';
+            require 'inc/db.php';
 
-        $sql = "SELECT * FROM todo WHERE taskID = :taskID";
-        $cmd = $db->prepare($sql);
-        $cmd->bindParam(':taskID', $_GET['taskID'], PDO::PARAM_INT);
-        $cmd->execute();
+            $sql = "SELECT * FROM todo WHERE taskID = :taskID";
+            $cmd = $db->prepare($sql);
+            $cmd->bindParam(':taskID', $_GET['taskID'], PDO::PARAM_INT);
+            $cmd->execute();
 
-        // Use fetch(), not fetchAll() for single row queries
-        $todo = $cmd->fetch();
-        $task = $todo['task'];
-        $note = $todo['note'];
-        $priorityID = $todo['priorityID'];
+            // Use fetch(), not fetchAll() for single row queries
+            $todo = $cmd->fetch();
+            $task = $todo['task'];
+            $note = $todo['note'];
+            $priorityID = $todo['priorityID'];
 
-        $db = null;
+            $db = null;
+        }
     }
+} catch (Exception $error) {
+    header('location:error.php');
 }
 ?>
 
-<main>
+<main class="container">
     <h3>Edit Task</h3>
     <p class="alert alert-info">A Task and a Priority level are required.</p>
     <form method="POST" action="save-todo.php">
@@ -49,22 +53,26 @@ if (isset($_GET['taskID'])) {
             <label for="priorityID" class="form-label">Priority:</label>
             <select name="priorityID" id="priorityID">
                 <?php
-                require 'inc/db.php';
-                $sql = "SELECT * FROM todo_priority";
+                try {
+                    require 'inc/db.php';
+                    $sql = "SELECT * FROM todo_priority";
 
-                $cmd = $db->prepare($sql);
-                $cmd->execute();
-                $todo_priority = $cmd->fetchAll();
+                    $cmd = $db->prepare($sql);
+                    $cmd->execute();
+                    $todo_priority = $cmd->fetchAll();
 
-                foreach ($todo_priority as $priority) {
-                    if ($priority['priorityID'] == $priorityID) {
-                        echo '<option selected value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
-                    } else {
-                        echo '<option value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                    foreach ($todo_priority as $priority) {
+                        if ($priority['priorityID'] == $priorityID) {
+                            echo '<option selected value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                        } else {
+                            echo '<option value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                        }
                     }
-                }
 
-                $db = null;
+                    $db = null;
+                } catch (Exception $error) {
+                    header('location:error.php');
+                }
                 ?>
             </select>
         </fieldset>

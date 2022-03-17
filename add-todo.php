@@ -3,7 +3,7 @@ $title = 'Add Task';
 require 'inc/header.php';
 ?>
 
-<main>
+<main class="container">
     <h3>Add a new task to the list</h3>
     <form method="POST" action="save-todo.php">
         <!-- Text forms -->
@@ -22,18 +22,22 @@ require 'inc/header.php';
             <label for="priorityID" class="form-label">Priority:</label>
             <select name="priorityID" id="priorityID">
                 <?php
-                require 'inc/db.php';
-                $sql = "SELECT * FROM todo_priority";
+                try {
+                    require 'inc/db.php';
+                    $sql = "SELECT * FROM todo_priority";
 
-                $cmd = $db->prepare($sql);
-                $cmd->execute();
-                $todo_priority = $cmd->fetchAll();
+                    $cmd = $db->prepare($sql);
+                    $cmd->execute();
+                    $todo_priority = $cmd->fetchAll();
 
-                foreach ($todo_priority as $priority) {
-                    echo '<option value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                    foreach ($todo_priority as $priority) {
+                        echo '<option value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                    }
+
+                    $db = null;
+                } catch (Exception $error) {
+                    header('location:error.php');
                 }
-
-                $db = null;
                 ?>
             </select>
         </fieldset>

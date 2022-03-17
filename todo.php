@@ -1,9 +1,9 @@
 <?php
-$title = 'View';
+$title = 'Tasks';
 require 'inc/header.php';
 ?>
 
-<main>
+<main class="container">
     <!-- Display table and apply Bootstrap styling -->
     <table class="table table-striped table-hover">
         <thead>
@@ -16,20 +16,23 @@ require 'inc/header.php';
         </thead>
         <tbody>
             <?php
-            // Connect to server
-            require 'inc/db.php';
+            try
+            {
+                // Connect to server
+                require 'inc/db.php';
 
-            // Read the table
-            $sql = "SELECT * FROM todo";
-            $sql = "SELECT todo.*, todo_priority.task as 'priorityID' FROM todo INNER JOIN todo_priority ON todo.priorityID = todo_priority.priorityID;";
-            $cmd = $db->prepare($sql);
-            $cmd->execute();
-            $todo = $cmd->fetchAll();
+                // Read the table
+                $sql = "SELECT * FROM todo";
+                $sql = "SELECT todo.*, todo_priority.task as 'priorityID' FROM todo INNER JOIN todo_priority ON todo.priorityID = todo_priority.priorityID;";
+                $cmd = $db->prepare($sql);
+                $cmd->execute();
+                $todo = $cmd->fetchAll();
 
-            // Loop through table and display
-            foreach ($todo as $todo) {
-                echo
-                '<tr>
+                // Loop through table and display
+                foreach ($todo as $todo)
+                {
+                    echo
+                    '<tr>
                     <td>
                         <a href="edit-todo.php?taskID=' . $todo['taskID'] . '">' . $todo['task'] . '</a>
                     </td>
@@ -42,8 +45,15 @@ require 'inc/header.php';
                         </a>
                     </td>
                 </tr>';
+                }
+                $db = null;
             }
-            $db = null;
+            catch (Exception $error)
+            {
+                // Redirect to error page
+                header('location:error.php');
+            }
+
             ?>
         </tbody>
     </table>

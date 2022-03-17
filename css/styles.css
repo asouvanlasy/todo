@@ -4,15 +4,8 @@ body {
     font-family: 'Fira Sans', sans-serif;
 }
 
-header {
-    padding: 60px;
-    text-align: center;
-    background: #1abc9c;
-    color: white;
-}
-
 main {
-    padding-top: 4vw;
+    padding-top: 3vw;
     padding-left: 20vw;
     padding-right: 20vw;
 }
