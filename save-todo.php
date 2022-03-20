@@ -3,8 +3,8 @@ $title = 'Save Task';
 require 'inc/header.php';
 ?>
 
-<main class="container">
-    <h3>Task Saved</h3>
+<main class="container pt-5">
+    <h1 class="alert alert-success">Task Saved</h1>
     <a href="todo.php">Return to To Do List</a>
     <?php
     try {

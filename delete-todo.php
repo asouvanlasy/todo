@@ -3,7 +3,7 @@ $title = 'Delete Task';
 require 'inc/header.php';
 ?>
 
-<main class="container">
+<main class="container pt-5">
     <h3>Task Deleted</h3>
     <?php
     try {

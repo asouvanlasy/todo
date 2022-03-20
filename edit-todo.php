@@ -34,24 +34,24 @@ try {
 }
 ?>
 
-<main class="container">
+<main class="container pt-5">
     <h3>Edit Task</h3>
     <p class="alert alert-info">A Task and a Priority level are required.</p>
     <form method="POST" action="save-todo.php">
         <!-- Textfield for Task (required field) -->
-        <fieldset class="form-group m-1">
+        <fieldset class="form-group mb-3 mt-3">
             <label for="task" class="control-label col-2">Task:</label>
-            <input name="task" id="task" required maxlength="100" value="<?php echo $task; ?>" />
+            <input name="task" id="task" class="form-control" required maxlength="100" value="<?php echo $task; ?>" />
         </fieldset>
         <!-- Textfield for Note -->
-        <fieldset class="form-group m-1">
+        <fieldset class="form-group mb-3 mt-3">
             <label for="note" class="control-label col-2">Note:</label>
-            <input name="note" id="note" maxlength="100" value="<?php echo $note; ?>" />
+            <input name="note" id="note" class="form-control" maxlength="100" value="<?php echo $note; ?>" />
         </fieldset>
         <!-- Dropdown selection for Priority (required field) -->
-        <fieldset class="mb-3 mt-3">
+        <fieldset class="form-group mb-3 mt-3">
             <label for="priorityID" class="form-label">Priority:</label>
-            <select name="priorityID" id="priorityID">
+            <select name="priorityID" id="priorityID" class="form-control">
                 <?php
                 try {
                     require 'inc/db.php';

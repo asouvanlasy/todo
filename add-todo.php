@@ -3,7 +3,7 @@ $title = 'Add Task';
 require 'inc/header.php';
 ?>
 
-<main class="container">
+<main class="container pt-5">
     <h3>Add a new task to the list</h3>
     <form method="POST" action="save-todo.php">
         <!-- Text forms -->
@@ -20,7 +20,7 @@ require 'inc/header.php';
         <!-- Dropdown for priority -->
         <fieldset class="mb-3 mt-3">
             <label for="priorityID" class="form-label">Priority:</label>
-            <select name="priorityID" id="priorityID">
+            <select name="priorityID" id="priorityID" class="form-control">
                 <?php
                 try {
                     require 'inc/db.php';
