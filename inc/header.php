@@ -1,3 +1,5 @@
+<!-- This header is shared across all pages -->
+
 <!doctype html>
 <html lang="en">
 
@@ -27,7 +29,7 @@
                         <a class="nav-link" href="login.php">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="signup.php">Sign Up</a>
+                        <a class="nav-link" href="register.php">Register</a>
                     </li>
                 </ul>
             </div>

@@ -41,7 +41,9 @@ require 'inc/header.php';
                 ?>
             </select>
         </fieldset>
-        <button class="btn btn-primary">Save</button>
+        <fieldset class="mb-3 mt-3">
+            <button class="btn btn-primary">Save</button>
+        </fieldset>
     </form>
 </main>
 </body>

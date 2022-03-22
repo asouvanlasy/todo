@@ -78,7 +78,9 @@ try {
         </fieldset>
         <!-- Include the taskID in URL -->
         <input type="hidden" name="taskID" id="taskID" value="<?php echo $taskID; ?>" />
-        <button class="btn btn-primary offset-2 mt-2">Save</button>
+        <fieldset class="mb-3 mt-3">
+            <button class="btn btn-primary">Save</button>
+        </fieldset>
     </form>
 </main>
 </body>

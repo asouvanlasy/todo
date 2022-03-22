@@ -43,7 +43,7 @@ require 'inc/header.php';
 </div>
 
 <div class="container pt-3">
-    <h2 class="alert alert-info">What's New (Mar 3, 2022)</h2>
+    <h2 class="alert alert-info">What's New (Mar 19, 2022)</h2>
     <div class="row">
         <div class="col-lg">
             <h3>This Home Page</h3>

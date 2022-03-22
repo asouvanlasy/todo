@@ -4,7 +4,6 @@ require 'inc/header.php';
 ?>
 
 <main class="container pt-5">
-    <!-- Display table and apply Bootstrap styling -->
     <table class="table table-striped table-hover">
         <thead class="table-dark">
             <tr>
@@ -16,8 +15,7 @@ require 'inc/header.php';
         </thead>
         <tbody>
             <?php
-            try
-            {
+            try {
                 // Connect to server
                 require 'inc/db.php';
 
@@ -29,8 +27,7 @@ require 'inc/header.php';
                 $todo = $cmd->fetchAll();
 
                 // Loop through table and display
-                foreach ($todo as $todo)
-                {
+                foreach ($todo as $todo) {
                     echo
                     '<tr>
                     <td>
@@ -47,13 +44,10 @@ require 'inc/header.php';
                 </tr>';
                 }
                 $db = null;
-            }
-            catch (Exception $error)
-            {
+            } catch (Exception $error) {
                 // Redirect to error page
                 header('location:error.php');
             }
-
             ?>
         </tbody>
     </table>
