@@ -6,7 +6,7 @@ require 'inc/header.php';
 
 <main class="container pt-5">
     <h3>Add a new task to the list</h3>
-    <form method="POST" action="save-todo.php">
+    <form method="POST" action="task-save.php">
         <!-- Text forms -->
         <fieldset class="mb-3 mt-3">
             <label for="task" class="form-label">Task:</label>
@@ -20,19 +20,19 @@ require 'inc/header.php';
         </fieldset>
         <!-- Dropdown for priority -->
         <fieldset class="mb-3 mt-3">
-            <label for="priorityID" class="form-label">Priority:</label>
-            <select name="priorityID" id="priorityID" class="form-control">
+            <label for="priority" class="form-label">Priority:</label>
+            <select name="priority" id="priority" class="form-control">
                 <?php
                 try {
                     require 'inc/db.php';
-                    $sql = "SELECT * FROM todo_priority";
+                    $sql = "SELECT * FROM task_priority";
 
                     $cmd = $db->prepare($sql);
                     $cmd->execute();
-                    $todo_priority = $cmd->fetchAll();
+                    $task_priority = $cmd->fetchAll();
 
-                    foreach ($todo_priority as $priority) {
-                        echo '<option value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                    foreach ($task_priority as $priority) {
+                        echo '<option value="' . $priority['priority'] . '">' . $priority['task'] . '</option>';
                     }
 
                     $db = null;

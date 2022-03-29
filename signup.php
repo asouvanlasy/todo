@@ -1,12 +1,12 @@
 <?php
-$title = 'Register';
+$title = 'Sign Up';
 require 'inc/header.php';
 ?>
 
 <main class="container pt-5">
-    <h1>User Registration</h1>
+    <h1>User Sign Up</h1>
     <h6 class="alert alert-secondary" id="message">Passwords must be a minimum of 8 characters, including 1 digit, 1 upper-case letter, and 1 lower-case letter.</h6>
-    <form method="post" action="save-registration.php">
+    <form method="post" action="signup-save.php">
         <fieldset class="mb-3 mt-3">
             <label for="username" class="form-label">Username:</label>
             <input name="username" id="username" required type="email" placeholder="email@email.com" />

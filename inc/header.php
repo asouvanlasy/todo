@@ -10,20 +10,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
     <script src="./js/scripts.js" type="text/javascript" defer></script>
-    <title>To Do List | <?php echo $title; ?></title>
+    <title>To Do | <?php echo $title; ?></title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="index.php">To Do List</a>
+            <a class="navbar-brand" href="index.php">To Do</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="todo.php">All Tasks</a>
+                        <a class="nav-link" href="task-view.php">All Tasks</a>
                     </li>
                     <?php
                     // Start session if it hasn't been started yet
@@ -33,7 +33,7 @@
                     if (!empty($_SESSION['username'])) {
                         echo '
                         <li class="nav-item">
-                            <a class="nav-link" href="my-todo.php">My Tasks</a>
+                            <a class="nav-link" href="task-view-auth.php">My Tasks</a>
                         </li>';
                     }
                     ?>
@@ -44,7 +44,7 @@
                         // These items are visible when anonynmous
                         echo '
                         <li class="nav-item">
-                            <a class="nav-link" href="register.php">Register</a>
+                            <a class="nav-link" href="signup.php">Sign Up</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login.php">Login</a>

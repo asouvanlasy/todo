@@ -1,5 +1,5 @@
 <?php
-$title = 'Saving your Registration';
+$title = 'Saving Your User';
 require 'inc/header.php';
 
 // Capture form inputs
@@ -31,7 +31,7 @@ if ($ok) {
     require 'inc/db.php';
 
     // Check for existing username
-    $sql = "SELECT * FROM users WHERE username = :username";
+    $sql = "SELECT * FROM user WHERE username = :username";
     $cmd = $db->prepare($sql);
     $cmd->bindParam('username', $username, PDO::PARAM_STR, 50);
     $cmd->execute();
@@ -44,7 +44,7 @@ if ($ok) {
     } else {
         // If username not found, has the password, then save the new user
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+        $sql = "INSERT INTO user (username, password) VALUES (:username, :password)";
         $cmd = $db->prepare($sql);
         $cmd->bindParam('username', $username, PDO::PARAM_STR, 50);
         $cmd->bindParam('password', $password, PDO::PARAM_STR, 255);

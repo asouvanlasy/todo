@@ -1,23 +1,28 @@
--- This table holds the 3 priority levels
-CREATE TABLE todo_priority
-(priorityID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+-- This table holds the three priority levels
+CREATE TABLE task_priority
+(priority INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 task VARCHAR(100) NOT NULL);
 
 -- This table holds the main data visible to the user
-CREATE TABLE todo (
-taskID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE task (
+task_pk INT NOT NULL AUTO_INCREMENT PRIMARY KEY,	
 task VARCHAR(100) NOT NULL,
-priorityID INT NOT NULL,
+priority INT NOT NULL,
 note VARCHAR(100),
-FOREIGN KEY (priorityID) REFERENCES todo_priority(priorityID)
+FOREIGN KEY (priority) REFERENCES task_priority(priority)
 );
 
-ALTER TABLE todo AUTO_INCREMENT 5000;
+-- task_pk begins incrementing at 5000
+ALTER TABLE task AUTO_INCREMENT = 100;
 
 -- Insert the 3 priority levels
-INSERT INTO todo_priority (task)
+INSERT INTO task_priority (task)
 VALUES ('High'), ('Medium'), ('Low');
 
--- Select command inside index.php
--- This joins the priorityID column from ToDoList and Priority
-SELECT todo.*, todo_priority.task as 'priorityID' FROM todo INNER JOIN todo_priority ON todo.priorityID = todo_priority.priorityID;
+
+
+-- Script for users
+CREATE TABLE user (
+user_pk INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(100) NOT NULL,
+password VARCHAR(255) NOT NULL);

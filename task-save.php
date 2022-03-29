@@ -6,12 +6,12 @@ require 'inc/header.php';
 
 <main class="container pt-5">
     <h1 class="alert alert-success">Task Saved</h1>
-    <a href="todo.php">Return to To Do List</a>
+    <a href="task-view.php">Return to To Do List</a>
     <?php
     try {
         // Declare local variables
-        $priorityID = $_POST['priorityID'];
-        $taskID = $_POST['taskID'];
+        $priority = $_POST['priority'];
+        $task_pk = $_POST['task_pk'];
         $task = trim($_POST['task']);
         $note = trim($_POST['note']);
 
@@ -29,12 +29,12 @@ require 'inc/header.php';
             $ok = false;
         }
         // Ensure dropdown selection isn't empty
-        if (empty($priorityID)) {
+        if (empty($priority)) {
             echo "A priority level is required.<br/>";
             $ok = false;
         }
         // Ensure dropdown isn't 0
-        if (!is_numeric($priorityID) || $priorityID < 1) {
+        if (!is_numeric($priority) || $priority < 1) {
             echo "Priority must be a number greater than zero.<br>";
             $ok = false;
         }
@@ -43,21 +43,21 @@ require 'inc/header.php';
         if ($ok) {
             require 'inc/db.php';
 
-            if (empty($taskID)) {
-                $sql = "INSERT INTO todo (task, priorityID, note) VALUES (:task, :priorityID, :note)";
+            if (empty($task_pk)) {
+                $sql = "INSERT INTO task (task, priority, note) VALUES (:task, :priority, :note)";
             } else {
-                $sql = "UPDATE todo SET task = :task, priorityID = :priorityID, note = :note WHERE taskID = :taskID";
+                $sql = "UPDATE task SET task = :task, priority = :priority, note = :note WHERE task_pk = :task_pk";
             }
 
             $cmd = $db->prepare($sql);
 
             // Link the forms to the corresponding table column
             $cmd->bindParam(':task', $task, PDO::PARAM_STR, 100);
-            $cmd->bindParam(':priorityID', $priorityID, PDO::PARAM_INT);
+            $cmd->bindParam(':priority', $priority, PDO::PARAM_INT);
             $cmd->bindParam(':note', $note, PDO::PARAM_STR, 100);
 
-            if (!empty($taskID)) {
-                $cmd->bindParam(':taskID', $taskID, PDO::PARAM_INT);
+            if (!empty($task_pk)) {
+                $cmd->bindParam(':task_pk', $task_pk, PDO::PARAM_INT);
             }
 
             $cmd->execute();

@@ -4,37 +4,37 @@ $title = 'Edit Task';
 require 'inc/header.php';
 
 try {
-    // Check for taskID URL param. If we have one, query db and populate form. If not, show blank form
-    $taskID = null;
+    // Check for task_pk URL param. If we have one, query db and populate form. If not, show blank form
+    $task_pk = null;
     $task = null;
     $note = null;
-    $priorityID = null;
+    $priority = null;
 
-    if (isset($_GET['taskID'])) {
-        if (is_numeric($_GET['taskID'])) {
-            $taskID = $_GET['taskID'];
+    if (isset($_GET['task_pk'])) {
+        if (is_numeric($_GET['task_pk'])) {
+            $task_pk = $_GET['task_pk'];
 
             require 'inc/db.php';
 
-            // Add userId filter so users can only see their own artists
-            $userId = $_SESSION['userId'];
-            $sql = "SELECT * FROM todo WHERE taskID = :taskID AND userId = :userId";
+            // Add user_pk filter so users can only see their own artists
+            $user_pk = $_SESSION['user_pk'];
+            $sql = "SELECT * FROM task WHERE task_pk = :task_pk AND user_pk = :user_pk";
             $cmd = $db->prepare($sql);
-            $cmd->bindParam(':taskID', $_GET['taskID'], PDO::PARAM_INT);
-            $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $cmd->bindParam(':task_pk', $_GET['task_pk'], PDO::PARAM_INT);
+            $cmd->bindParam(':user_pk', $user_pk, PDO::PARAM_INT);
             $cmd->execute();
             // Use fetch(), not fetchAll() for single row queries
-            $todo = $cmd->fetch();
+            $task = $cmd->fetch();
 
             if (empty($task)) {
                 $db = null;
                 header('location:error.php');
                 exit();
             } else {
-                $task = $todo['task'];
-                $note = $todo['note'];
-                $priorityID = $todo['priorityID'];
-    
+                $task = $task['task'];
+                $note = $task['note'];
+                $priority = $task['priority'];
+
                 $db = null;
             }
         }
@@ -47,7 +47,7 @@ try {
 <main class="container pt-5">
     <h3>Edit Task</h3>
     <p class="alert alert-info">A Task and a Priority level are required.</p>
-    <form method="POST" action="save-todo.php">
+    <form method="POST" action="task-save.php">
         <!-- Textfield for Task (required field) -->
         <fieldset class="form-group mb-3 mt-3">
             <label for="task" class="control-label col-2">Task:</label>
@@ -60,22 +60,22 @@ try {
         </fieldset>
         <!-- Dropdown selection for Priority (required field) -->
         <fieldset class="form-group mb-3 mt-3">
-            <label for="priorityID" class="form-label">Priority:</label>
-            <select name="priorityID" id="priorityID" class="form-control">
+            <label for="priority" class="form-label">Priority:</label>
+            <select name="priority" id="priority" class="form-control">
                 <?php
                 try {
                     require 'inc/db.php';
-                    $sql = "SELECT * FROM todo_priority";
+                    $sql = "SELECT * FROM task_priority";
 
                     $cmd = $db->prepare($sql);
                     $cmd->execute();
-                    $todo_priority = $cmd->fetchAll();
+                    $task_priority = $cmd->fetchAll();
 
-                    foreach ($todo_priority as $priority) {
-                        if ($priority['priorityID'] == $priorityID) {
-                            echo '<option selected value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                    foreach ($task_priority as $priority) {
+                        if ($priority['priority'] == $priority) {
+                            echo '<option selected value="' . $priority['priority'] . '">' . $priority['task'] . '</option>';
                         } else {
-                            echo '<option value="' . $priority['priorityID'] . '">' . $priority['task'] . '</option>';
+                            echo '<option value="' . $priority['priority'] . '">' . $priority['task'] . '</option>';
                         }
                     }
 
@@ -86,8 +86,8 @@ try {
                 ?>
             </select>
         </fieldset>
-        <!-- Include the taskID in URL -->
-        <input type="hidden" name="taskID" id="taskID" value="<?php echo $taskID; ?>" />
+        <!-- Include the task_pk in URL -->
+        <input type="hidden" name="task_pk" id="task_pk" value="<?php echo $task_pk; ?>" />
         <fieldset class="mb-3 mt-3">
             <button class="btn btn-primary">Save</button>
         </fieldset>

@@ -7,7 +7,7 @@ $password = $_POST['password'];
 require 'inc/db.php';
 
 // Check for username not found, redirect to login with error message
-$sql = "SELECT * FROM users WHERE username = :username";
+$sql = "SELECT * FROM user WHERE username = :username";
 $cmd = $db->prepare($sql);
 $cmd->bindParam('username', $username, PDO::PARAM_STR, 50);
 $cmd->execute();
@@ -24,10 +24,10 @@ if (!$user) {
         $db = null;
         header('location:login.php?invalid=true');
     } else {
-        // Login is valid: access session object, store indentity in session var, redirect to todo page
+        // Login is valid: access session object, store indentity in session var, redirect to task-view page
         session_start();
         $_SESSION['username'] = $username;
-        $_SESSION['userId'] = $user['userId'];
-        header('location:todo.php');
+        $_SESSION['user_pk'] = $user['user_pk'];
+        header('location:task-view.php');
     }
 }

@@ -9,22 +9,22 @@ require 'inc/header.php';
     <?php
     try {
         // Get PK from url param and validate it
-        if (isset($_GET['taskID'])) {
-            if (is_numeric($_GET['taskID'])) {
+        if (isset($_GET['task_pk'])) {
+            if (is_numeric($_GET['task_pk'])) {
                 require 'inc/db.php';
 
                 // Delete task
-                $sql = "DELETE FROM todo WHERE taskID = :taskID AND userId = :userId";
+                $sql = "DELETE FROM task WHERE task_pk = :task_pk AND user_pk = :user_pk";
                 $cmd = $db->prepare($sql);
-                $cmd->bindParam(':taskID', $_GET['taskID'], PDO::PARAM_INT);
-                $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
+                $cmd->bindParam(':task_pk', $_GET['task_pk'], PDO::PARAM_INT);
+                $cmd->bindParam(':user_pk', $user_pk, PDO::PARAM_INT);
                 $cmd->execute();
 
                 $db = null;
 
                 echo'
                 <div class="alert alert-info">Task has been deleted.
-                    <a href="todo.php">Return to To Do list</a>
+                    <a href="task-view.php">Return to To Do list</a>
                 </div>';
             } else {
                 echo '<div class="alert alert-warning">Task Missing</div>';

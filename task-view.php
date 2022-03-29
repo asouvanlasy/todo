@@ -19,19 +19,19 @@ require 'inc/header.php';
                 require 'inc/db.php';
 
                 // Read the table
-                $sql = "SELECT todo.*, todo_priority.task as 'priorityID' FROM todo
-                        INNER JOIN todo_priority ON todo.priorityID = todo_priority.priorityID";
+                $sql = "SELECT task.*, task_priority.task as 'priority' FROM task
+                        INNER JOIN task_priority ON task.priority = task_priority.priority";
                 $cmd = $db->prepare($sql);
                 $cmd->execute();
-                $todo = $cmd->fetchAll();
+                $task = $cmd->fetchAll();
 
                 // Loop through table and display
-                foreach ($todo as $todo) {
+                foreach ($task as $task) {
                     echo '
                     <tr>
-                        <td>' . $todo['task'] . '</td>
-                        <td>' . $todo['priorityID'] . '</td>
-                        <td>' . $todo['note'] . '</td>
+                        <td>' . $task['task'] . '</td>
+                        <td>' . $task['priority'] . '</td>
+                        <td>' . $task['note'] . '</td>
                     </tr>';
                 }
                 $db = null;

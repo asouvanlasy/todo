@@ -4,10 +4,10 @@ require 'inc/header.php';
 ?>
 
 <main class="container pt-5">
-    <h1 class="alert alert-primary">Welcome to To Do List</h1>
+    <h1 class="alert alert-primary">Welcome to To Do</h1>
     <p>A personal project culminating from the knowledge I learned in my COMP-1006 PHP class.</p>
     <p>I decided to make a to do list because it’s something I use in everyday life.</p>
-    <a href="https://github.com/asouvanlasy/todo-list" class="text-info">View the source on Github.</a>
+    <a href="https://github.com/asouvanlasy/todo" class="text-info">View the source on Github.</a>
 </main>
 
 <div class="container pt-3">
@@ -56,20 +56,6 @@ require 'inc/header.php';
         <div class="col-lg">
             <h3>Error Handling</h3>
             <p>All PHP code is nested in try-catch blocks. If any error is encountered, it'll redirect the user to an appropriate error page.</p>
-        </div>
-    </div>
-</div>
-
-<div class="container pt-3">
-    <h2 class="alert alert-info">Future Plans</h2>
-    <div class="row">
-        <div class="col-lg-6">
-            <h3>Registration and Login</h3>
-            <p>Add user accounts to have personalized tasks.</p>
-        </div>
-        <div class="col-lg-6">
-            <h3>Unique CSS Styling</h3>
-            <p>Override default Bootstrap color theme to have something more unique.</p>
         </div>
     </div>
 </div>
