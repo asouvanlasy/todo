@@ -1,4 +1,5 @@
 <?php
+require 'inc/auth.php';
 $title = 'Edit Task';
 require 'inc/header.php';
 
@@ -15,18 +16,27 @@ try {
 
             require 'inc/db.php';
 
-            $sql = "SELECT * FROM todo WHERE taskID = :taskID";
+            // Add userId filter so users can only see their own artists
+            $userId = $_SESSION['userId'];
+            $sql = "SELECT * FROM todo WHERE taskID = :taskID AND userId = :userId";
             $cmd = $db->prepare($sql);
             $cmd->bindParam(':taskID', $_GET['taskID'], PDO::PARAM_INT);
+            $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
             $cmd->execute();
-
             // Use fetch(), not fetchAll() for single row queries
             $todo = $cmd->fetch();
-            $task = $todo['task'];
-            $note = $todo['note'];
-            $priorityID = $todo['priorityID'];
 
-            $db = null;
+            if (empty($task)) {
+                $db = null;
+                header('location:error.php');
+                exit();
+            } else {
+                $task = $todo['task'];
+                $note = $todo['note'];
+                $priorityID = $todo['priorityID'];
+    
+                $db = null;
+            }
         }
     }
 } catch (Exception $error) {

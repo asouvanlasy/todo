@@ -23,14 +23,43 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="todo.php">Tasks</a>
+                        <a class="nav-link" href="todo.php">All Tasks</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.php">Register</a>
-                    </li>
+                    <?php
+                    // Start session if it hasn't been started yet
+                    if (session_status() == PHP_SESSION_NONE) {
+                        session_start();
+                    }
+                    if (!empty($_SESSION['username'])) {
+                        echo '
+                        <li class="nav-item">
+                            <a class="nav-link" href="my-todo.php">My Tasks</a>
+                        </li>';
+                    }
+                    ?>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <?php
+                    if (empty($_SESSION['username'])) {
+                        // These items are visible when anonynmous
+                        echo '
+                        <li class="nav-item">
+                            <a class="nav-link" href="register.php">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Login</a>
+                        </li>';
+                    } else {
+                        // These items are visible when authenticated
+                        echo '
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">' . $_SESSION['username'] . '</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <?php
-$title = 'Tasks';
+require 'inc/auth.php';
+$title = 'My Tasks';
 require 'inc/header.php';
 ?>
 
@@ -10,6 +11,7 @@ require 'inc/header.php';
                 <th>Task</th>
                 <th>Priority</th>
                 <th>Note</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -18,10 +20,12 @@ require 'inc/header.php';
                 // Connect to server
                 require 'inc/db.php';
 
-                // Read the table
+                // Read the table and filter by authenticated user
                 $sql = "SELECT todo.*, todo_priority.task as 'priorityID' FROM todo
-                        INNER JOIN todo_priority ON todo.priorityID = todo_priority.priorityID";
+                        INNER JOIN todo_priority ON todo.priorityID = todo_priority.priorityID
+                        WHERE userId = :userId";
                 $cmd = $db->prepare($sql);
+                $cmd->bindValue('userId', $_SESSION['userId'], PDO::PARAM_INT);
                 $cmd->execute();
                 $todo = $cmd->fetchAll();
 
@@ -29,9 +33,17 @@ require 'inc/header.php';
                 foreach ($todo as $todo) {
                     echo '
                     <tr>
-                        <td>' . $todo['task'] . '</td>
+                        <td>
+                            <a href="edit-todo.php?taskID=' . $todo['taskID'] . '">' . $todo['task'] . '</a>
+                        </td>
                         <td>' . $todo['priorityID'] . '</td>
                         <td>' . $todo['note'] . '</td>
+                        <td>
+                            <a href="delete-todo.php?taskID=' . $todo['taskID'] . '" class="btn btn-danger"
+                                onclick="return confirmDelete()">
+                                Delete
+                            </a>
+                        </td>
                     </tr>';
                 }
                 $db = null;
@@ -42,6 +54,15 @@ require 'inc/header.php';
             ?>
         </tbody>
     </table>
+    <!-- If user is authenticated, show add task button -->
+    <?php
+    if (!empty($_SESSION['username'])) {
+        echo '
+        <form action="add-todo.php">
+            <button class="btn btn-primary">Add Task</button>
+        </form>';
+    }
+    ?>
 </main>
 </body>
 

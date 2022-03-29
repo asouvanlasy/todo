@@ -1,4 +1,5 @@
 <?php
+require 'inc/auth.php';
 $title = 'Save Task';
 require 'inc/header.php';
 ?>

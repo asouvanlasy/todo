@@ -1,4 +1,5 @@
 <?php
+require 'inc/auth.php';
 $title = 'Delete Task';
 require 'inc/header.php';
 ?>
@@ -12,18 +13,19 @@ require 'inc/header.php';
             if (is_numeric($_GET['taskID'])) {
                 require 'inc/db.php';
 
-                // SQL DELETE
-                $sql = "DELETE FROM todo WHERE taskID = :taskID";
+                // Delete task
+                $sql = "DELETE FROM todo WHERE taskID = :taskID AND userId = :userId";
                 $cmd = $db->prepare($sql);
                 $cmd->bindParam(':taskID', $_GET['taskID'], PDO::PARAM_INT);
+                $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
                 $cmd->execute();
 
                 $db = null;
 
-                echo
-                '<div class="alert alert-info">Task has been deleted.
-                                    <a href="todo.php">Return to To Do list</a>
-                                </div>';
+                echo'
+                <div class="alert alert-info">Task has been deleted.
+                    <a href="todo.php">Return to To Do list</a>
+                </div>';
             } else {
                 echo '<div class="alert alert-warning">Task Missing</div>';
             }
