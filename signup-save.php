@@ -31,20 +31,20 @@ if ($ok) {
     require 'inc/db.php';
 
     // Check for existing username
-    $sql = "SELECT * FROM user WHERE username = :username";
+    $sql = "SELECT * FROM users WHERE username = :username";
     $cmd = $db->prepare($sql);
     $cmd->bindParam('username', $username, PDO::PARAM_STR, 50);
     $cmd->execute();
-    $user = $cmd->fetch(); // This $user object is a boolean
+    $users = $cmd->fetch(); // This $user object is a boolean
 
     // If username exists, show error then stop
-    if ($user) {
+    if ($users) {
         echo '<p class="alert alert-info">Username already exists.</p>';
         $db = null;
     } else {
         // If username not found, has the password, then save the new user
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO user (username, password) VALUES (:username, :password)";
+        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
         $cmd = $db->prepare($sql);
         $cmd->bindParam('username', $username, PDO::PARAM_STR, 50);
         $cmd->bindParam('password', $password, PDO::PARAM_STR, 255);

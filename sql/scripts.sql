@@ -9,7 +9,8 @@ task_pk INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 task VARCHAR(100) NOT NULL,
 priority INT NOT NULL,
 note VARCHAR(100),
-FOREIGN KEY (priority) REFERENCES task_priority(priority)
+FOREIGN KEY (priority) REFERENCES task_priority(priority),
+userId INT NOT NULL
 );
 
 -- task_pk begins incrementing at 5000
@@ -22,7 +23,7 @@ VALUES ('High'), ('Medium'), ('Low');
 
 
 -- Script for users
-CREATE TABLE user (
-user_pk INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE users (
+userId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 username VARCHAR(100) NOT NULL,
 password VARCHAR(255) NOT NULL);

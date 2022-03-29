@@ -43,18 +43,21 @@ require 'inc/header.php';
         if ($ok) {
             require 'inc/db.php';
 
+            // Set user var from session var
+            $userId = $_SESSION['userId'];
+
             if (empty($task_pk)) {
-                $sql = "INSERT INTO task (task, priority, note) VALUES (:task, :priority, :note)";
+                $sql = "INSERT INTO task (task, priority, note, userId) VALUES (:task, :priority, :note :userId)";
             } else {
-                $sql = "UPDATE task SET task = :task, priority = :priority, note = :note WHERE task_pk = :task_pk";
+                $sql = "UPDATE task SET task = :task, priority = :priority, note = :note, userId = :userId WHERE task_pk = :task_pk";
             }
 
-            $cmd = $db->prepare($sql);
-
             // Link the forms to the corresponding table column
+            $cmd = $db->prepare($sql);
             $cmd->bindParam(':task', $task, PDO::PARAM_STR, 100);
             $cmd->bindParam(':priority', $priority, PDO::PARAM_INT);
             $cmd->bindParam(':note', $note, PDO::PARAM_STR, 100);
+            $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
 
             if (!empty($task_pk)) {
                 $cmd->bindParam(':task_pk', $task_pk, PDO::PARAM_INT);

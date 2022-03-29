@@ -16,12 +16,12 @@ try {
 
             require 'inc/db.php';
 
-            // Add user_pk filter so users can only see their own artists
-            $user_pk = $_SESSION['user_pk'];
-            $sql = "SELECT * FROM task WHERE task_pk = :task_pk AND user_pk = :user_pk";
+            // Add userId filter so users can only see their own artists
+            $userId = $_SESSION['userId'];
+            $sql = "SELECT * FROM task WHERE task_pk = :task_pk AND userId = :userId";
             $cmd = $db->prepare($sql);
             $cmd->bindParam(':task_pk', $_GET['task_pk'], PDO::PARAM_INT);
-            $cmd->bindParam(':user_pk', $user_pk, PDO::PARAM_INT);
+            $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
             $cmd->execute();
             // Use fetch(), not fetchAll() for single row queries
             $task = $cmd->fetch();

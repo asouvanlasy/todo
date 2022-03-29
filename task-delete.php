@@ -14,10 +14,10 @@ require 'inc/header.php';
                 require 'inc/db.php';
 
                 // Delete task
-                $sql = "DELETE FROM task WHERE task_pk = :task_pk AND user_pk = :user_pk";
+                $sql = "DELETE FROM task WHERE task_pk = :task_pk AND userId = :userId";
                 $cmd = $db->prepare($sql);
                 $cmd->bindParam(':task_pk', $_GET['task_pk'], PDO::PARAM_INT);
-                $cmd->bindParam(':user_pk', $user_pk, PDO::PARAM_INT);
+                $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
                 $cmd->execute();
 
                 $db = null;

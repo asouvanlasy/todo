@@ -23,9 +23,9 @@ require 'inc/header.php';
                 // Read the table and filter by authenticated user
                 $sql = "SELECT task.*, task_priority.task as 'priority_pk' FROM task
                         INNER JOIN task_priority ON task.priority = task_priority.priority
-                        WHERE user_pk = :user_pk";
+                        WHERE userId = :userId";
                 $cmd = $db->prepare($sql);
-                $cmd->bindValue('user_pk', $_SESSION['user_pk'], PDO::PARAM_INT);
+                $cmd->bindValue('userId', $_SESSION['userId'], PDO::PARAM_INT);
                 $cmd->execute();
                 $task = $cmd->fetchAll();
 
