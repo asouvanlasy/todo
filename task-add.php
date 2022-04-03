@@ -25,6 +25,7 @@ require 'inc/header.php';
                 <?php
                 try {
                     require 'inc/db.php';
+                    
                     $sql = "SELECT * FROM task_priority";
 
                     $cmd = $db->prepare($sql);

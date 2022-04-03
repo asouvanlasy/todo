@@ -35,10 +35,10 @@ if ($ok) {
     $cmd = $db->prepare($sql);
     $cmd->bindParam('username', $username, PDO::PARAM_STR, 50);
     $cmd->execute();
-    $users = $cmd->fetch(); // This $user object is a boolean
+    $user = $cmd->fetch(); // This $user object is a boolean
 
     // If username exists, show error then stop
-    if ($users) {
+    if ($user) {
         echo '<p class="alert alert-info">Username already exists.</p>';
         $db = null;
     } else {

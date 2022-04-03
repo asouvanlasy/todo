@@ -4,22 +4,11 @@ body {
     font-family: 'Fira Sans', sans-serif;
 }
 
-/* .navbar-light {
-    background-color: #e28d2c;
+.navbar-dark, .bg-primary, .btn-primary {
+  background-color: #5194c8;
+  
 }
 
-.bg-primary {
-    background-color: #e28d2c;
+.alert-info {
+  background-color: #d0e3f0;
 }
-
-.bg-success {
-    background-color: #68857F;
-}
-
-.bg-danger {
-    background-color: #D24B2C;
-}
-
-.bg-info {
-    background-color: #D8AC85;
-} */

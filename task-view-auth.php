@@ -6,8 +6,8 @@ require 'inc/header.php';
 
 <main class="container pt-5">
     <table class="table table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
+        <thead class="table-dark bg-primary">
+            <tr class="bg-primary">
                 <th>Task</th>
                 <th>Priority</th>
                 <th>Note</th>
@@ -21,7 +21,7 @@ require 'inc/header.php';
                 require 'inc/db.php';
 
                 // Read the table and filter by authenticated user
-                $sql = "SELECT task.*, task_priority.task as 'priority_pk' FROM task
+                $sql = "SELECT task.*, task_priority.task as 'priority' FROM task
                         INNER JOIN task_priority ON task.priority = task_priority.priority
                         WHERE userId = :userId";
                 $cmd = $db->prepare($sql);
@@ -34,12 +34,12 @@ require 'inc/header.php';
                     echo '
                     <tr>
                         <td>
-                            <a href="task-edit.php?task_pk=' . $task['task_pk'] . '">' . $task['task_pk'] . '</a>
+                            <a href="task-edit.php?task_pk=' . $task['task_pk'] . '">' . $task['task'] . '</a>
                         </td>
                         <td>' . $task['priority'] . '</td>
                         <td>' . $task['note'] . '</td>
                         <td>
-                            <a href="task-delete.php?taskID=' . $task['task_pk'] . '" class="btn btn-danger"
+                            <a href="task-delete.php?task_pk=' . $task['task_pk'] . '" class="btn btn-danger"
                                 onclick="return confirmDelete()">
                                 Delete
                             </a>

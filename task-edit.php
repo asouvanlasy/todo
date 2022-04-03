@@ -20,7 +20,7 @@ try {
             $userId = $_SESSION['userId'];
             $sql = "SELECT * FROM task WHERE task_pk = :task_pk AND userId = :userId";
             $cmd = $db->prepare($sql);
-            $cmd->bindParam(':task_pk', $_GET['task_pk'], PDO::PARAM_INT);
+            $cmd->bindParam(':task_pk', $task_pk, PDO::PARAM_INT);
             $cmd->bindParam(':userId', $userId, PDO::PARAM_INT);
             $cmd->execute();
             // Use fetch(), not fetchAll() for single row queries

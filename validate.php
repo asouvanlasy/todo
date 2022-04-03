@@ -11,15 +11,15 @@ $sql = "SELECT * FROM users WHERE username = :username";
 $cmd = $db->prepare($sql);
 $cmd->bindParam('username', $username, PDO::PARAM_STR, 50);
 $cmd->execute();
-$users = $cmd->fetch(); // This $user object is a boolean
+$user = $cmd->fetch(); // This $user object is a boolean
 
 // If username found, hash and compare passwords
-if (!$users) {
+if (!$user) {
     $db = null;
     header('location:login.php?invalid=true');
 } else {
     // If username found, hash and compare the password entered with the hashed password in the db query result
-    if (!password_verify($password, $users['password'])) {
+    if (!password_verify($password, $user['password'])) {
         // If passwords don't match, redirect to login with error message
         $db = null;
         header('location:login.php?invalid=true');
@@ -27,7 +27,7 @@ if (!$users) {
         // Login is valid: access session object, store indentity in session var, redirect to task-view page
         session_start();
         $_SESSION['username'] = $username;
-        $_SESSION['userId'] = $users['userId'];
+        $_SESSION['userId'] = $user['userId'];
         header('location:task-view.php');
     }
 }
